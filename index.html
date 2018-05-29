@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
 
-    const socket = io('wss://integracion-tarea-3.herokuapp.com', {path  ':/flights'});
+    const socket = io('wss://integracion-tarea-3.herokuapp.com', {path: '/flights'});
 
     // Initialize and add the map
     function initMap() {
@@ -33,9 +33,7 @@
         var marker = new google.maps.Marker({position: pos, map: map});
       }
     </script>
-
-    </div>
-
+    
     <script>
     function showinfowindow(marker, n, ci, co, coc, ai){
       var infowindow = new google.maps.InfoWindow ({
