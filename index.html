@@ -12,9 +12,14 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #messages { margin-bottom: 40px }
+      #map {
+        height: 650px;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
+    <div id="map"></div>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDVT5-6bKCv7fTJW7iQLeCcTEDrPbjVBs&callback=initMap">
       </script>
@@ -23,7 +28,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
 
-    const socket = io('wss://integracion-tarea-3.herokuapp.com', {path: '/flights'});
+    const socket = io('wss://integracion-tarea-3.herokuapp.com', { path: '/flights'});
 
     // Initialize and add the map
     function initMap() {
