@@ -2,15 +2,33 @@
 <html>
   <head>
     <title>Tarea 3</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #messages { margin-bottom: 40px }
+    </style>
   </head>
   <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <form action="">
+      <input id="n" autocomplete="off" /><button>Send</button>
+    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
 
     const socket = io('wss://integracion-tarea-3.herokuapp.com', {path  ':/flights'});
 
-  // Initialize and add the map
+    // Initialize and add the map
     function initMap() {
       var pos = {lat: -32, lng: -62};
       window.googleMap = new google.maps.Map(
@@ -41,6 +59,22 @@
     </script>
 
     <script>
+    function showinfowindow2(marker, c, a, p, s){
+      var infowindow = new google.maps.InfoWindow ({
+        content: 'Code: ' c + '<br/>' + "Airline: " + a '<br/>' + "Plane: "
+                + p '<br/>' + "Seats: " + s
+      });
+      google.maps.event.addListener(marker, 'click', function () {
+        current_window.forEach((window)=>{
+          window.close(map)
+        })
+        infowindow.open(window.googleMap, marker)
+      });
+    }
+
+    </script>
+
+    <script>
 
     var current_window = []
     var p_markers = {}
@@ -56,17 +90,49 @@
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
         showinfowindow(marker, msg[i].name, msg[i].city, msg[i].country, msg[i].country_code, msg[i].airport_code)
+        a_markers[i] = marker
+        all_a[i] = msg[i]
       }
 
     });
 
     socket.emit('FLIGHTS',{});
     socket.on('FLIGHTS', function(msg){
-
+      for (i in msg){
+        var origin = {lat: msg[i].origin.airport_position[0], lng: msg[i].origin.airport_position[1]}
+        var destination = {lat: msg[i].destination.airport_position[0], lng: msg[i].destination.airport_position[1]}
+      }
+      var flightPlanCoordinates = [{origin, destination}];
+      var flightPath = new google.maps.Polyline ({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      var marker = new google.maps.Marker({
+        position: origin, map: window.googleMap, icon: './image2.png'
+      });
+      flightPath.setMap(window.googleMap);
+      showinfowindow2(marker, msg[i].code, msg[i].airline, msg[i].plane, msg[i].seats)
+      p_markers[msg[i].code] = marker
     });
 
     socket.on('POSITION', function(msg){
-
+      if (all_pc[msg.code] == undefined){
+        all_pc[msg.code] = []
+      }
+      else (all_pc[msg.code]){
+        all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
+      }
+      var flightPath = new google.maps.Polyline ({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      flightPath.setMap(window.googleMap);
     });
 
     </script>
