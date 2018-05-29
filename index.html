@@ -10,16 +10,53 @@
 
     const socket = io('wss://integracion-tarea-3.herokuapp.com', {path  ':/flights'});
 
+  // Initialize and add the map
+    function initMap() {
+      var pos = {lat: -32, lng: -62};
+      window.googleMap = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: pos});
+        var marker = new google.maps.Marker({position: pos, map: map});
+      }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDVT5-6bKCv7fTJW7iQLeCcTEDrPbjVBs&callback=initMap">
+      </script>
+
+    </div>
+
+    <script>
+    function showinfowindow(marker, n, ci, co, coc, ai){
+      var infowindow = new google.maps.InfoWindow ({
+        content: 'Name: ' n + '<br/>' + "City: " + ci '<br/>' + "Country: "
+                + co '<br/>' + "Country Code: " + coc '<br/>' + "Airport: " + ai
+      });
+      google.maps.event.addListener(marker, 'click', function () {
+        current_window.forEach((window)=>{
+          window.close(map)
+        })
+        infowindow.open(window.googleMap, marker)
+      });
+    }
+
     </script>
 
     <script>
 
     var current_window = []
+    var p_markers = {}
+    var a_markers = {}
     var all_a = {}
     var all_pc = {}
 
     socket.emit('AIRPORTS',{});
     socket.on('AIRPORTS', function(msg){
+      for (i in msg){
+        var pos_act = {lat: msg[i].airport_position[0], lng: msg[i].airport_position[1]}
+        var marker = new google.maps.Marker({
+          position: pos_act, map: window.googleMap, icon: './image.png'
+        })
+        showinfowindow(marker, msg[i].name, msg[i].city, msg[i].country, msg[i].country_code, msg[i].airport_code)
+      }
 
     });
 
