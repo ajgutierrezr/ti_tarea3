@@ -37,14 +37,14 @@
           $('#n').val('flights');
           return false;
         });
-        socket.on('POSITION', function(msg){
-
+        socket.on('POSITION', function(data){
+          JSON.stringify(data)
         });
-        socket.on('AIRPORTS', function(msg){
-
+        socket.on('AIRPORTS', function(data){
+          JSON.stringify(data)
         });
-        socket.on('FLIGHTS', function(msg){
-
+        socket.on('FLIGHTS', function(data){
+          JSON.stringify(data)
         });
       });
     </script>
