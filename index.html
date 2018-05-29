@@ -19,19 +19,32 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+    <form action="">
+      <input id="n" autocomplete="off" /><button>Send</button>
+    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
-        var socket = io();
+        var socket = io('wss://integracion-tarea-3.herokuapp.com/flights');
         $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
+          socket.emit('AIRPORTS');
+          $('#m').val('airports');
           return false;
         });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
+        $('form').submit(function(){
+          socket.emit('FLIGHTS');
+          $('#n').val('flights');
+          return false;
+        });
+        socket.on('POSITION', function(msg){
+
+        });
+        socket.on('AIRPORTS', function(msg){
+
+        });
+        socket.on('FLIGHTS', function(msg){
+
         });
       });
     </script>
