@@ -100,7 +100,7 @@
         flightPath.setMap(window.googleMap);
         var mensaje = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
             msg[i].plane + '<br/>' + 'Seats: ' + msg[i].seats
-        showinfowindow2(marker, info)
+        showinfowindow(marker, info)
         p_markers[msg[i].code] = marker
       }
     });
@@ -110,8 +110,9 @@
         all_pc[msg.code] = []
       }
       else {
-        all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
+        all_pc[msg.code].push{lat: msg.position[0], lng: msg.position[1]}
       }
+      all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
       var flightPath = new google.maps.Polyline ({
         path: flightPlanCoordinates,
         geodesic: true,
