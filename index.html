@@ -29,10 +29,10 @@
     <script>
 
     const socket = io('wss://integracion-tarea-3.herokuapp.com', { path: '/flights'});
-    
-     </script>
-     <script>
-     
+    io.on('connection', (socket) => {
+      let token = socket.handshake.query.token;
+    });
+
     // Initialize and add the map
     function initMap() {
       var pos = {lat: -32, lng: -62};
