@@ -87,7 +87,7 @@
         console.log(msg[i].origin.airport_position[0])
         var origin = new google.maps.LatLng(parseFloat(msg[i].origin.airport_position[0]), parseFloat(msg[i].origin.airport_position[1]))
         var destination = new google.maps.LatLng(parseFloat(msg[i].destination.airport_position[0]), parseFloat(msg[i].destination.airport_position[1]))
-        var flightPlanCoordinates = [{origin, destination}];
+        var flightPlanCoordinates = [origin, destination];
         var flightPath = new google.maps.Polyline ({
           path: flightPlanCoordinates,
           geodesic: true,
