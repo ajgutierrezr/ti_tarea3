@@ -47,9 +47,9 @@
         content: info
       });
       google.maps.event.addListener(marker, 'click', function () {
-        current_window.forEach((window)=>{
+        for (window in current_window){
           window.close(map)
-        })
+        }
         infowindow.open(window.googleMap, marker)
       });
     }
