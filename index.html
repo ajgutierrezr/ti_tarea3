@@ -35,7 +35,7 @@
 
     // Initialize and add the map
     function initMap() {
-      var pos = {lat: -32, lng: -62};
+      var pos = new google.maps.LatLng(-32, -62);
       window.googleMap = new google.maps.Map(
         document.getElementById('map'), {zoom: 4, center: pos});
       }
@@ -68,7 +68,7 @@
     socket.on('AIRPORTS', function(msg){
       for (i in msg){
         console.log(msg[i].airport_position[0])
-        var pos_act = {lat: parseFloat(msg[i].airport_position[0]), lng: parseFloat(msg[i].airport_position[1])}
+        var pos_act = new google.maps.LatLng(parseFloat(msg[i].airport_position[0]), parseFloat(msg[i].airport_position[1]))
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
@@ -85,9 +85,8 @@
     socket.on('FLIGHTS', function(msg){
       for (i in msg){
         console.log(msg[i].origin.airport_position[0])
-        var origin = {lat: parseFloat(msg[i].origin.airport_position[0]), lng: parseFloat(msg[i].origin.airport_position[1])}
-        var destination = {lat: parseFloat(msg[i].destination.airport_position[0]), lng: parseFloat(msg[i].destination.airport_position[1])}
-
+        var origin = new google.maps.LatLng(parseFloat(msg[i].origin.airport_position[0]), parseFloat(msg[i].origin.airport_position[1]))
+        var destination = new google.maps.LatLng(parseFloat(msg[i].destination.airport_position[0]), parseFloat(msg[i].destination.airport_position[1]))
         var flightPlanCoordinates = [{origin, destination}];
         var flightPath = new google.maps.Polyline ({
           path: flightPlanCoordinates,
@@ -108,14 +107,15 @@
     });
 
     socket.on('POSITION', function(msg){
+      var newpos = new google.maps.LatLng(parseFloat(msg.position[0]), parseFloat(msg.position[1]))
       if (all_pc[msg.code] == undefined){
         all_pc[msg.code] = []
       }
       else {
-        all_pc[msg.code].push({lat: parseFloat(msg.position[0]), lng: parseFloat(msg.position[1])})
+        all_pc[msg.code].push(newpos)
       }
       console.log(msg.position)
-      p_markers[msg.code].setPosition({lat: parseFloat(msg.position[0]), lng: parseFloat(msg.position[1])})
+      p_markers[msg.code].setPosition(newpos)
       var flightPath = new google.maps.Polyline ({
         path: flightPlanCoordinates,
         geodesic: true,
