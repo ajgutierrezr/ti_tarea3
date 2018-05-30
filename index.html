@@ -21,7 +21,7 @@
   <body>
     <div id="map"></div>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzRuLXRH9R0sk3xNxFbo9TFZLTLa1Whfk&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaseBU_GfPhpvW5k67KaXp3Udzw1CyDDE&callback=initMap">
       </script>
 
     <script src="socket.io.js"></script>
@@ -110,7 +110,7 @@
         all_pc[msg.code] = []
       }
       else {
-        all_pc[msg.code].push{lat: msg.position[0], lng: msg.position[1]}
+        all_pc[msg.code].push({lat: msg.position[0], lng: msg.position[1]})
       }
       all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
       var flightPath = new google.maps.Polyline ({
