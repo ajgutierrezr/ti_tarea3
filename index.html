@@ -44,8 +44,8 @@
     <script>
     function showinfowindow(marker, n, ci, co, coc, ai){
       var infowindow = new google.maps.InfoWindow ({
-        content: 'Name: ' + n + '<br/>' + "City: " + ci '<br/>' + "Country: "
-                + co '<br/>' + "Country Code: " + coc '<br/>' + "Airport: " + ai
+        content: 'Name: ' + n + '<br/>' + 'City: ' + ci '<br/>' + 'Country: '
+                + co '<br/>' + 'Country Code: ' + coc '<br/>' + 'Airport: ' + ai
       });
       google.maps.event.addListener(marker, 'click', function () {
         current_window.forEach((window)=>{
