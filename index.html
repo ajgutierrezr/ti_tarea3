@@ -42,26 +42,9 @@
     </script>
 
     <script>
-    function showinfowindow(marker, n, ci, co, coc, ai){
+    function showinfowindow(marker, info){
       var infowindow = new google.maps.InfoWindow ({
-        content: 'Name: ' + n + '<br/>' + 'City: ' + ci '<br/>' + 'Country: '
-                + co '<br/>' + 'Country Code: ' + coc '<br/>' + 'Airport: ' + ai
-      });
-      google.maps.event.addListener(marker, 'click', function () {
-        current_window.forEach((window)=>{
-          window.close(map)
-        })
-        infowindow.open(window.googleMap, marker)
-      });
-    }
-
-    </script>
-
-    <script>
-    function showinfowindow2(marker, c, a, p, s){
-      var infowindow = new google.maps.InfoWindow ({
-        content: 'Code: ' + c + '<br/>' + "Airline: " + a '<br/>' + "Plane: "
-                + p '<br/>' + "Seats: " + s
+        content: info
       });
       google.maps.event.addListener(marker, 'click', function () {
         current_window.forEach((window)=>{
@@ -88,7 +71,10 @@
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
-        showinfowindow(marker, msg[i].name, msg[i].city, msg[i].country, msg[i].country_code, msg[i].airport_code)
+    var info = airports[object].name + '<br/>'+ airports[object].city + '<br/>'+
+            airports[object].country + ', ' + airports[object].country_code + '<br/>'+
+            airports[object].airport_code        
+        showinfowindow(marker,info)
         a_markers[i] = marker
         all_a[i] = msg[i]
       }
@@ -113,7 +99,9 @@
         position: origin, map: window.googleMap, icon: './image2.png'
       });
       flightPath.setMap(window.googleMap);
-      showinfowindow2(marker, msg[i].code, msg[i].airline, msg[i].plane, msg[i].seats)
+      var mensaje = msg[object].code + '<br/>' + msg[object].airline + '<br/>' +
+          msg[object].plane + '<br/>' + 'Seats: ' + msg[object].seats
+      showinfowindow2(marker, info)
       p_markers[msg[i].code] = marker
     });
 
