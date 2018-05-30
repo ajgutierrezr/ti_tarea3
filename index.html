@@ -21,7 +21,7 @@
   <body>
     <div id="map"></div>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFlKT2SFCMvf7eLRoaro_MTm9qVT0JY6Q&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzRuLXRH9R0sk3xNxFbo9TFZLTLa1Whfk&callback=initMap">
       </script>
 
     <script src="socket.io.js"></script>
@@ -71,14 +71,13 @@
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
-    var info = airports[i].name + '<br/>'+ airports[i].city + '<br/>'+
-            airports[i].country + ', ' + airports[i].country_code + '<br/>'+
-            airports[i].airport_code
+    var info = all_a[i].name + '<br/>'+ all_a[i].city + '<br/>'+
+            all_a[i].country + ', ' + all_a[i].country_code + '<br/>'+
+            all_a[i].airport_code
         showinfowindow(marker,info)
         a_markers[i] = marker
         all_a[i] = msg[i]
       }
-
     });
 
     socket.emit('FLIGHTS',{});
@@ -86,23 +85,24 @@
       for (i in msg){
         var origin = {lat: msg[i].origin.airport_position[0], lng: msg[i].origin.airport_position[1]}
         var destination = {lat: msg[i].destination.airport_position[0], lng: msg[i].destination.airport_position[1]}
+
+        var flightPlanCoordinates = [{origin, destination}];
+        var flightPath = new google.maps.Polyline ({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        var marker = new google.maps.Marker({
+          position: origin, map: window.googleMap, icon: './image2.png'
+        });
+        flightPath.setMap(window.googleMap);
+        var mensaje = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
+            msg[i].plane + '<br/>' + 'Seats: ' + msg[i].seats
+        showinfowindow2(marker, info)
+        p_markers[msg[i].code] = marker
       }
-      var flightPlanCoordinates = [{origin, destination}];
-      var flightPath = new google.maps.Polyline ({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
-      var marker = new google.maps.Marker({
-        position: origin, map: window.googleMap, icon: './image2.png'
-      });
-      flightPath.setMap(window.googleMap);
-      var mensaje = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
-          msg[i].plane + '<br/>' + 'Seats: ' + msg[i].seats
-      showinfowindow2(marker, info)
-      p_markers[msg[i].code] = marker
     });
 
     socket.on('POSITION', function(msg){
