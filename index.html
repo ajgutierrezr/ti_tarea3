@@ -112,7 +112,7 @@
       else {
         all_pc[msg.code].push({lat: msg.position[0], lng: msg.position[1]})
       }
-      all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
+      p_markers[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
       var flightPath = new google.maps.Polyline ({
         path: flightPlanCoordinates,
         geodesic: true,
