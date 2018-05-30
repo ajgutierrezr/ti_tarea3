@@ -23,7 +23,7 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDVT5-6bKCv7fTJW7iQLeCcTEDrPbjVBs&callback=initMap">
       </script>
-    
+
     <script src="socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -38,7 +38,7 @@
         var marker = new google.maps.Marker({position: pos, map: map});
       }
     </script>
-    
+
     <script>
     function showinfowindow(marker, n, ci, co, coc, ai){
       var infowindow = new google.maps.InfoWindow ({
@@ -90,6 +90,7 @@
         a_markers[i] = marker
         all_a[i] = msg[i]
       }
+      console.log(msg)
 
     });
 
