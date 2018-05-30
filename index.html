@@ -71,9 +71,9 @@
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
-    var info = all_a[i].name + '<br/>'+ all_a[i].city + '<br/>'+
-            all_a[i].country + ', ' + all_a[i].country_code + '<br/>'+
-            all_a[i].airport_code
+    var info = msg[i].name + '<br/>'+ msg[i].city + '<br/>'+
+            msg[i].country + ', ' + msg[i].country_code + '<br/>'+
+            msg[i].airport_code
         showinfowindow(marker,info)
         a_markers[i] = marker
         all_a[i] = msg[i]
