@@ -30,6 +30,9 @@
 
     const socket = io('wss://integracion-tarea-3.herokuapp.com', { path: '/flights'});
 
+    </script>
+    <script>
+
     console.log(socket.id);
 
     // Initialize and add the map
@@ -37,7 +40,6 @@
       var pos = {lat: -32, lng: -62};
       window.googleMap = new google.maps.Map(
         document.getElementById('map'), {zoom: 4, center: pos});
-        var marker = new google.maps.Marker({position: pos, map: map});
       }
     </script>
 
