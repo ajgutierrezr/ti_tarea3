@@ -71,9 +71,9 @@
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
-    var info = airports[object].name + '<br/>'+ airports[object].city + '<br/>'+
-            airports[object].country + ', ' + airports[object].country_code + '<br/>'+
-            airports[object].airport_code        
+    var info = airports[i].name + '<br/>'+ airports[i].city + '<br/>'+
+            airports[i].country + ', ' + airports[i].country_code + '<br/>'+
+            airports[i].airport_code
         showinfowindow(marker,info)
         a_markers[i] = marker
         all_a[i] = msg[i]
@@ -99,8 +99,8 @@
         position: origin, map: window.googleMap, icon: './image2.png'
       });
       flightPath.setMap(window.googleMap);
-      var mensaje = msg[object].code + '<br/>' + msg[object].airline + '<br/>' +
-          msg[object].plane + '<br/>' + 'Seats: ' + msg[object].seats
+      var mensaje = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
+          msg[i].plane + '<br/>' + 'Seats: ' + msg[i].seats
       showinfowindow2(marker, info)
       p_markers[msg[i].code] = marker
     });
