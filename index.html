@@ -37,7 +37,7 @@
     function initMap() {
       var pos = new google.maps.LatLng(-32, -62);
       window.googleMap = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: pos});
+        document.getElementById('map'), {zoom: 5, center: pos});
       }
     </script>
 
@@ -67,7 +67,6 @@
     socket.emit('AIRPORTS',{});
     socket.on('AIRPORTS', function(msg){
       for (i in msg){
-        console.log(msg[i].airport_position[0])
         var pos_act = new google.maps.LatLng(parseFloat(msg[i].airport_position[0]), parseFloat(msg[i].airport_position[1]))
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
@@ -84,7 +83,6 @@
     socket.emit('FLIGHTS',{});
     socket.on('FLIGHTS', function(msg){
       for (i in msg){
-        console.log(msg[i].origin.airport_position[0])
         var origin = new google.maps.LatLng(parseFloat(msg[i].origin.airport_position[0]), parseFloat(msg[i].origin.airport_position[1]))
         var destination = new google.maps.LatLng(parseFloat(msg[i].destination.airport_position[0]), parseFloat(msg[i].destination.airport_position[1]))
         var flightPlanCoordinates = [origin, destination];
@@ -114,10 +112,9 @@
       else {
         all_pc[msg.code].push(newpos)
       }
-      console.log(msg.position)
       p_markers[msg.code].setPosition(newpos)
       var flightPath = new google.maps.Polyline ({
-        path: flightPlanCoordinates,
+        path: all_pc[msg.code],
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
