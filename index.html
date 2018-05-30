@@ -21,7 +21,7 @@
   <body>
     <div id="map"></div>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaj2OXerc8qqsfiX-K1YV3jO97z2LraL4&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4J7SSiZ9d48qq2mdUEbUBOo--3fQqBgs&callback=initMap">
       </script>
 
     <script src="socket.io.js"></script>
@@ -67,7 +67,7 @@
     socket.emit('AIRPORTS',{});
     socket.on('AIRPORTS', function(msg){
       for (i in msg){
-        var pos_act = {lat: parseInt(msg[i].airport_position[0]), lng: msg[i].airport_position[1]}
+        var pos_act = {lat: parseInt(msg[i].airport_position[0]), lng: parseInt(msg[i].airport_position[1])}
         var marker = new google.maps.Marker({
           position: pos_act, map: window.googleMap, icon: './image.png'
         })
@@ -83,8 +83,8 @@
     socket.emit('FLIGHTS',{});
     socket.on('FLIGHTS', function(msg){
       for (i in msg){
-        var origin = {lat: msg[i].origin.airport_position[0], lng: msg[i].origin.airport_position[1]}
-        var destination = {lat: msg[i].destination.airport_position[0], lng: msg[i].destination.airport_position[1]}
+        var origin = {lat: parseInt(msg[i].origin.airport_position[0]), lng: parseInt(msg[i].origin.airport_position[1])}
+        var destination = {lat: parseInt(msg[i].destination.airport_position[0]), lng: parseInt(msg[i].destination.airport_position[1])}
 
         var flightPlanCoordinates = [{origin, destination}];
         var flightPath = new google.maps.Polyline ({
