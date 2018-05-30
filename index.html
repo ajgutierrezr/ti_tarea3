@@ -109,7 +109,7 @@
       if (all_pc[msg.code] == undefined){
         all_pc[msg.code] = []
       }
-      else (all_pc[msg.code]{
+      else {
         all_pc[msg.code].setPosition({lat: msg.position[0], lng: msg.position[1]})
       }
       var flightPath = new google.maps.Polyline ({
