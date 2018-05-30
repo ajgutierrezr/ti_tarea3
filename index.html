@@ -29,9 +29,8 @@
     <script>
 
     const socket = io('wss://integracion-tarea-3.herokuapp.com', { path: '/flights'});
-    io.on('connection', (socket) => {
-      let token = socket.handshake.query.token;
-    });
+
+    console.log(socket.id)
 
     // Initialize and add the map
     function initMap() {
@@ -93,7 +92,6 @@
         a_markers[i] = marker
         all_a[i] = msg[i]
       }
-      console.log(msg)
 
     });
 
