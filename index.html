@@ -44,7 +44,7 @@
     <script>
     function showinfowindow(marker, n, ci, co, coc, ai){
       var infowindow = new google.maps.InfoWindow ({
-        content: 'Name: ' n + '<br/>' + "City: " + ci '<br/>' + "Country: "
+        content: 'Name: ' + n + '<br/>' + "City: " + ci '<br/>' + "Country: "
                 + co '<br/>' + "Country Code: " + coc '<br/>' + "Airport: " + ai
       });
       google.maps.event.addListener(marker, 'click', function () {
@@ -60,7 +60,7 @@
     <script>
     function showinfowindow2(marker, c, a, p, s){
       var infowindow = new google.maps.InfoWindow ({
-        content: 'Code: ' c + '<br/>' + "Airline: " + a '<br/>' + "Plane: "
+        content: 'Code: ' + c + '<br/>' + "Airline: " + a '<br/>' + "Plane: "
                 + p '<br/>' + "Seats: " + s
       });
       google.maps.event.addListener(marker, 'click', function () {
