@@ -98,7 +98,7 @@
           position: origin, map: window.googleMap, icon: './image2.png'
         });
         flightPath.setMap(window.googleMap);
-        var mensaje = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
+        var info = msg[i].code + '<br/>' + msg[i].airline + '<br/>' +
             msg[i].plane + '<br/>' + 'Seats: ' + msg[i].seats
         showinfowindow(marker, info)
         p_markers[msg[i].code] = marker
